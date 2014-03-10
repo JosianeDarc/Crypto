@@ -11,9 +11,10 @@ using System.IO;
 
 namespace WindowsFormsApplication1
 {
-    public partial class Form1 : Form
+    public partial class RailFenceForm : Form
     {
-        public Form1()
+
+        public RailFenceForm()
         {
             InitializeComponent();
         }
