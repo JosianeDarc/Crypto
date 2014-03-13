@@ -19,9 +19,12 @@ namespace BSKCrypto
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MacierzoweA a = new MacierzoweA();
+            textBox2.Text = MacierzoweA.Encrypt(textBox3.Text, textBox1.Text);
+        }
 
-            textBox2.Text = a.Encrypt(textBox1.Text);
+        private void button2_Click(object sender, EventArgs e)
+        {
+            textBox2.Text = MacierzoweA.Decrypyt(textBox3.Text, textBox1.Text);
         }
     }
 }

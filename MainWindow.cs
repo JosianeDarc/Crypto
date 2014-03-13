@@ -15,10 +15,6 @@ namespace BSKCrypto
     {
         private Dictionary<string, Control> tabs;
         private EncryptingBlocks blocks;
-
-        /*!
-         * MainWindow for application with split and tabcontrol
-         * */
         public MainWindow()
         {
             InitializeComponent();
@@ -55,15 +51,6 @@ namespace BSKCrypto
                 tbp.Controls.Add(formControl);
                 tabControl.TabPages.Add(tbp);
             }
-            /*
-            RailFenceForm form = new RailFenceForm();
-            TabPage tp = new TabPage("test");
-            form.TopLevel = false;
-            form.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            form.Show();
-            tp.Controls.Add(form);
-            tabControl.TabPages.Add(tp);
-             */
         }
 
         private void button2_Click(object sender, EventArgs e)
