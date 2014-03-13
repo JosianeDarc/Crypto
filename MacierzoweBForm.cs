@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApplication1
+namespace BSKCrypto
 {
-    public partial class MacierzoweB : Form
+    public partial class MacierzoweBForm : Form
     {
-        public MacierzoweB()
+        public MacierzoweBForm()
         {
             InitializeComponent();
         }

@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace BSKCrypto
+{
+    public partial class EncryptingBlocks : Form
+    {
+        public RichTextBox rtb { get { return richTextBox1; } }
+        public EncryptingBlocks()
+        {
+            InitializeComponent();
+        }
+    }
+}

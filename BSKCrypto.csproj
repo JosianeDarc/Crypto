@@ -7,7 +7,7 @@
     <ProjectGuid>{063BEAED-D458-4E78-8913-D6D7E56B73CC}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WindowsFormsApplication1</RootNamespace>
+    <RootNamespace>BSKCrypto</RootNamespace>
     <AssemblyName>WindowsFormsApplication1</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -44,17 +44,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MacierzoweA.cs">
+    <Compile Include="EncryptingBlocks.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MacierzoweA.Designer.cs">
-      <DependentUpon>MacierzoweA.cs</DependentUpon>
+    <Compile Include="EncryptingBlocks.Designer.cs">
+      <DependentUpon>EncryptingBlocks.cs</DependentUpon>
     </Compile>
-    <Compile Include="MacierzoweB.cs">
+    <Compile Include="algorithms\MacierzoweA.cs" />
+    <Compile Include="MacierzoweAForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MacierzoweB.Designer.cs">
-      <DependentUpon>MacierzoweB.cs</DependentUpon>
+    <Compile Include="MacierzoweAForm.Designer.cs">
+      <DependentUpon>MacierzoweAForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MacierzoweBForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MacierzoweBForm.Designer.cs">
+      <DependentUpon>MacierzoweBForm.cs</DependentUpon>
     </Compile>
     <Compile Include="RailFenceForm.cs">
       <SubType>Form</SubType>
@@ -70,7 +77,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RailFence.cs" />
+    <Compile Include="algorithms\RailFence.cs" />
+    <EmbeddedResource Include="EncryptingBlocks.resx">
+      <DependentUpon>EncryptingBlocks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MacierzoweAForm.resx">
+      <DependentUpon>MacierzoweAForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RailFenceForm.resx">
       <DependentUpon>RailFenceForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -85,6 +98,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

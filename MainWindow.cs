@@ -9,22 +9,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApplication1
+namespace BSKCrypto
 {
     public partial class MainWindow : Form
     {
         private Dictionary<string, Control> tabs;
+        private EncryptingBlocks blocks;
 
+        /*!
+         * MainWindow for application with split and tabcontrol
+         * */
         public MainWindow()
         {
             InitializeComponent();
 
             tabs = new Dictionary<string, Control>();
-
             
             tabs.Add("RailFence", new RailFenceForm());
-            tabs.Add("MacierzoweA", new MacierzoweA());
-            tabs.Add("MacierzoweB", new MacierzoweB());
+            tabs.Add("MacierzoweA", new MacierzoweAForm());
+            tabs.Add("MacierzoweB", new MacierzoweBForm());
+            tabs.Add("Kodowanie bloków", blocks = new EncryptingBlocks());
 
             createTabs();
         }
@@ -46,6 +50,7 @@ namespace WindowsFormsApplication1
                 TabPage tbp = new TabPage(pair.Key);
                 formControl.TopLevel = false;
                 formControl.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+                formControl.WindowState = FormWindowState.Maximized;
                 formControl.Show();
                 tbp.Controls.Add(formControl);
                 tabControl.TabPages.Add(tbp);
@@ -59,6 +64,39 @@ namespace WindowsFormsApplication1
             tp.Controls.Add(form);
             tabControl.TabPages.Add(tp);
              */
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                listBox1.Items.Clear();
+                String[] files = Directory.GetFiles(dialog.SelectedPath, "*.txt");
+                for (int i = 0; i < files.Length; i++)
+                {
+                    listBox1.Items.Add(files[i]);
+                }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            blocks.rtb.Clear();
+            //listBox1.SelectedItem
+            //blocks.rtb.Text = "aaaaa\naaaa";
+            try
+            {
+                using (StreamReader sr = new StreamReader(listBox1.SelectedItem.ToString()))
+                {
+                    String line = sr.ReadToEnd();
+                    blocks.rtb.Text += line;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
         }
     }
 }

@@ -8,13 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApplication1
+namespace BSKCrypto
 {
-    public partial class MacierzoweA : Form
+    public partial class MacierzoweAForm : Form
     {
-        public MacierzoweA()
+        public MacierzoweAForm()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MacierzoweA a = new MacierzoweA();
+
+            textBox2.Text = a.Encrypt(textBox1.Text);
         }
     }
 }

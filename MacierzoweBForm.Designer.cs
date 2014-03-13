@@ -1,6 +1,6 @@
-﻿namespace WindowsFormsApplication1
+﻿namespace BSKCrypto
 {
-    partial class MacierzoweA
+    partial class MacierzoweBForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "MacierzoweA";
+            this.Text = "MacierzoweB";
         }
 
         #endregion
