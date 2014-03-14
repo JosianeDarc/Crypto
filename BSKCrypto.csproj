@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="algorithms\MacierzoweB.cs" />
     <Compile Include="EncryptingBlocks.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +84,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MacierzoweAForm.resx">
       <DependentUpon>MacierzoweAForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MacierzoweBForm.resx">
+      <DependentUpon>MacierzoweBForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RailFenceForm.resx">
       <DependentUpon>RailFenceForm.cs</DependentUpon>

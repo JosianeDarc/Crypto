@@ -16,5 +16,17 @@ namespace BSKCrypto
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            textBox2.Text = MacierzoweB.Encrypt(textBox3.Text, textBox1.Text);
+            //textBox2.Text = MacierzoweB.Encrypt("CONVENIENCE", "HERE IS A SECRET MESSAGE ENCIPHERED BY TRANSPOSITION");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            textBox2.Text = MacierzoweB.Decrypt(textBox3.Text, textBox1.Text);
+            //textBox2.Text = MacierzoweB.Decrypt("CONVENIENCE", "HECRNCEYIISEPSGDIRNTOAAESRMPNSSROEEBTETIAEEHS");
+        }
     }
 }
