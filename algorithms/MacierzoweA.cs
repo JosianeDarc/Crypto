@@ -113,7 +113,11 @@ namespace BSKCrypto
                         int tempj = j + 1;
                         while (keyNumbers[j] - 1 > value.Length - i * keyLength && tempj < keyLength)
                             tempj++;
-                        tabs[i, keyNumbers[tempj] - 1] = value[i * keyLength + j];
+                        try
+                        {
+                            tabs[i, keyNumbers[tempj] - 1] = value[i * keyLength + j];
+                        }
+                        catch (Exception) { }
                     }
                     else
                         tabs[i, keyNumbers[j] - 1] = value[i * keyLength + j];

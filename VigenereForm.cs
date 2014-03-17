@@ -7,37 +7,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
 
 namespace BSKCrypto
 {
-    public partial class RailFenceForm : Form, FormInterface
+    public partial class VigenereForm : Form, FormInterface
     {
-
-        public RailFenceForm()
+        public VigenereForm()
         {
             InitializeComponent();
-            this.WindowState = FormWindowState.Maximized;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
-            {
-                int n = Convert.ToInt32(numericUpDown1.Value);
-                textResult.Text = RailFence.Encrypt(n, text.Text);
-            }
-            catch (ArithmeticException) { }
+            Vigenere v = new Vigenere(textKey.Text);
+            textResult.Text = v.Encrypt(text.Text);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            try
-            {
-                int n = Convert.ToInt32(numericUpDown1.Value);
-                textResult.Text = RailFence.Decrypt(n, text.Text);
-            }
-            catch (ArithmeticException) { }
+            Vigenere v = new Vigenere(textKey.Text);
+            textResult.Text = v.Decrypt(text.Text);
         }
 
         public string getOutput()

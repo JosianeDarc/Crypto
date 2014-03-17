@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace BSKCrypto
 {
+    /*!
+     * Klasa z metodami do szyfrowania z przykładu 2b. Na podstawie klucza (tekstu) generowany jest tekst.
+     * */
     public static class MacierzoweB
     {
-
+        //!
+        //! Zamiana klucza w postaci tekstu na tablicę liczb
+        //! \param[in] key  Klucz w postaci tekstu do sparsowania
+        //!
         public static int[] parseKey(String key)
         {
             int[] result = new int[key.Length];
@@ -28,6 +34,11 @@ namespace BSKCrypto
             return result;
         }
 
+        //!
+        //! Metoda do szyfrowania tekstu na podstawie klucza
+        //! \param[in] key      Klucz w postaci tekstu, który zostanie sparsowany
+        //! \param[in] value    Tekst do zaszyfrowania
+        //!
         public static string Encrypt(String key, String value)
         {
             int[] keyNumbers = parseKey(key);
@@ -79,6 +90,11 @@ namespace BSKCrypto
             return new String(result);
         }
 
+        //!
+        //! Metoda do odkodowania tekstu na podstawie znanego klucza
+        //! \param[in] key      Klucz na podstawie którego zostanie odszyfrowany tekst
+        //! \param[in] value    Zaszyfrowany tekst do odkodowania
+        //!
         public static string Decrypt(String key, String value)
         {
             int[] keyNumbers = parseKey(key);

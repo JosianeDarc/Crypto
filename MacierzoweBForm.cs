@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace BSKCrypto
 {
-    public partial class MacierzoweBForm : Form
+    public partial class MacierzoweBForm : Form, FormInterface
     {
         public MacierzoweBForm()
         {
@@ -19,14 +19,24 @@ namespace BSKCrypto
 
         private void button1_Click(object sender, EventArgs e)
         {
-            textBox2.Text = MacierzoweB.Encrypt(textBox3.Text, textBox1.Text);
+            textResult.Text = MacierzoweB.Encrypt(textBox3.Text, text.Text);
             //textBox2.Text = MacierzoweB.Encrypt("CONVENIENCE", "HERE IS A SECRET MESSAGE ENCIPHERED BY TRANSPOSITION");
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            textBox2.Text = MacierzoweB.Decrypt(textBox3.Text, textBox1.Text);
+            textResult.Text = MacierzoweB.Decrypt(textBox3.Text, text.Text);
             //textBox2.Text = MacierzoweB.Decrypt("CONVENIENCE", "HECRNCEYIISEPSGDIRNTOAAESRMPNSSROEEBTETIAEEHS");
+        }
+
+        public string getOutput()
+        {
+            return textResult.Text;
+        }
+
+        public void setInput(string value)
+        {
+            text.Text = value;
         }
     }
 }
