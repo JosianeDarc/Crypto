@@ -44,8 +44,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="algorithms\CezaraA.cs" />
+    <Compile Include="algorithms\CezaraB.cs" />
     <Compile Include="algorithms\MacierzoweB.cs" />
+    <Compile Include="algorithms\MacierzoweC.cs" />
     <Compile Include="algorithms\Vigenere.cs" />
+    <Compile Include="CezarAForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CezarAForm.Designer.cs">
+      <DependentUpon>CezarAForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CezarBForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CezarBForm.Designer.cs">
+      <DependentUpon>CezarBForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EncryptingBlocks.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +80,12 @@
     </Compile>
     <Compile Include="MacierzoweBForm.Designer.cs">
       <DependentUpon>MacierzoweBForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MacierzoweCForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MacierzoweCForm.Designer.cs">
+      <DependentUpon>MacierzoweCForm.cs</DependentUpon>
     </Compile>
     <Compile Include="RailFenceForm.cs">
       <SubType>Form</SubType>
@@ -87,6 +108,12 @@
     <Compile Include="VigenereForm.Designer.cs">
       <DependentUpon>VigenereForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CezarAForm.resx">
+      <DependentUpon>CezarAForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CezarBForm.resx">
+      <DependentUpon>CezarBForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EncryptingBlocks.resx">
       <DependentUpon>EncryptingBlocks.cs</DependentUpon>
     </EmbeddedResource>
@@ -95,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MacierzoweBForm.resx">
       <DependentUpon>MacierzoweBForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MacierzoweCForm.resx">
+      <DependentUpon>MacierzoweCForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RailFenceForm.resx">
       <DependentUpon>RailFenceForm.cs</DependentUpon>

@@ -14,10 +14,11 @@ namespace BSKCrypto
     {
         private int startIndex = 0;
         private String[] algo;
-        public RichTextBox rtb { get { return text; } }
+        private List<BlockInfo> operations;
         public EncryptingBlocks()
         {
             InitializeComponent();
+            operations = new List<BlockInfo>();
             algo = new String[] { "RailFence", "MacierzoweA", "MacierzoweB", "Vigenere" };
             foreach (String s in algo)
             {
@@ -33,25 +34,34 @@ namespace BSKCrypto
         public void setInput(string value)
         {
             text.Text = value;
+            textResult.Text = "";
+            startIndex = 0;
+            labCount.Text = Convert.ToString(startIndex);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             try
             {
-                textResult.Text += text.Text.Substring(startIndex, Convert.ToInt32(numBlock.Value));
+                textResult.Text += Encrypt(text.Text.Substring(startIndex, Convert.ToInt32(numBlock.Value)));
                 startIndex += Convert.ToInt32(numBlock.Value);
-                labCount.Text = Convert.ToString(startIndex);
             }
             catch (ArgumentOutOfRangeException)
             {
-
+                if (startIndex < text.Text.Length)
+                {
+                    int size = text.Text.Length;
+                    int endIndex = size - startIndex;
+                    textResult.Text += Encrypt(text.Text.Substring(startIndex, endIndex - 1));
+                    startIndex += endIndex;
+                }
             }
+            labCount.Text = Convert.ToString(startIndex);
         }
 
         private void EncryptingBlocks_Load(object sender, EventArgs e)
         {
-            numBlock.Value = 100;
+            numBlock.Value = 10;
         }
 
         private String Encrypt(String value)
@@ -76,6 +86,13 @@ namespace BSKCrypto
                 return v.Encrypt(text.Text);
             }
             return "";
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            textResult.Text = "";
+            startIndex = 0;
+            labCount.Text = Convert.ToString(startIndex);
         }
     }
 

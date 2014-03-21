@@ -26,6 +26,9 @@ namespace BSKCrypto
             tabs.Add("RailFence", new RailFenceForm());
             tabs.Add("MacierzoweA", new MacierzoweAForm());
             tabs.Add("MacierzoweB", new MacierzoweBForm());
+            tabs.Add("MacierzoweC", new MacierzoweCForm());
+            tabs.Add("CezaraA", new CezarAForm());
+            tabs.Add("CezaraB", new CezarBForm());
             tabs.Add("Vigenere", new VigenereForm());
             tabs.Add("Kodowanie bloków", blocks = new EncryptingBlocks());
 

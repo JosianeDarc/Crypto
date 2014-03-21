@@ -42,6 +42,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.textKey = new System.Windows.Forms.TextBox();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.numBlock)).BeginInit();
             this.SuspendLayout();
             // 
@@ -172,11 +173,23 @@
             this.textKey.Size = new System.Drawing.Size(122, 20);
             this.textKey.TabIndex = 14;
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(112, 11);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(35, 13);
+            this.linkLabel1.TabIndex = 15;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Reset";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
             // EncryptingBlocks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(361, 322);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.textKey);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -216,5 +229,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textKey;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }

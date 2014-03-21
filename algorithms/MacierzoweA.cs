@@ -48,6 +48,7 @@ namespace BSKCrypto
             if((keyNumbers = parseKey(key)) == null) {
                 return "";
             }
+            value = value.Replace(" ", String.Empty).Replace("\t", String.Empty).Replace("\n", String.Empty).Replace("\r", String.Empty);
             //int tabsCount = value.Length / keyLength;
             int keyLength = keyNumbers.Length;
             int tabsCount = (value.Length + keyLength - 1) / keyLength;
@@ -64,22 +65,21 @@ namespace BSKCrypto
             }
 
             char[] result = new char[value.Length];
+            int counter = 0;
 
             for (int i = 0; i < tabsCount; i++)
             {
                 for (int j = 0; j < keyLength; j++)
                 {
-                    if (i * keyLength + j >= value.Length)
-                        break;
+                    //if (i * keyLength + j >= value.Length)
+                        //break;
                     if (tabs[i, keyNumbers[j] - 1] == '\0')
                     {
-                        int tempj = j+1;
-                        while (tabs[i, keyNumbers[tempj] - 1] == '\0' && tempj<keyLength)
-                            tempj++;
-                        result[i * keyLength + j] = tabs[i, keyNumbers[tempj] - 1];
+                        //result[counter++] = tabs[i, keyNumbers[tempj] - 1];
+                        continue;
                     }
                     else
-                        result[i * keyLength + j] = tabs[i, keyNumbers[j]-1];
+                        result[counter++] = tabs[i, keyNumbers[j]-1];
                 }
             }
 
@@ -98,29 +98,32 @@ namespace BSKCrypto
             {
                 return "";
             }
+            //value = value.Replace(" ", string.Empty);
+            value = value.Replace(" ", String.Empty).Replace("\t", String.Empty).Replace("\n", String.Empty).Replace("\r", String.Empty);
             int keyLength = keyNumbers.Length;
             int tabsCount = (value.Length + keyLength - 1) / keyLength;
             char[,] tabs = new char[tabsCount, keyLength];
+            int counter = 0;
 
             for (int i = 0; i < tabsCount; i++)
             {
                 for (int j = 0; j < keyLength; j++)
                 {
-                    if (i * keyLength + j >= value.Length)
+                    if (counter >= value.Length)
                         break;
-                    if (i == tabsCount - 1 && keyNumbers[j] - 1 >= value.Length - i * keyLength)
+                    if (i == tabsCount - 1)
                     {
-                        int tempj = j + 1;
-                        while (keyNumbers[j] - 1 > value.Length - i * keyLength && tempj < keyLength)
-                            tempj++;
-                        try
+                        if (keyNumbers[j]-1 < value.Length - i * keyLength)
                         {
-                            tabs[i, keyNumbers[tempj] - 1] = value[i * keyLength + j];
+                            tabs[i, keyNumbers[j] - 1] = value[counter++];
                         }
-                        catch (Exception) { }
+                        else
+                        {
+                            continue;
+                        }
                     }
                     else
-                        tabs[i, keyNumbers[j] - 1] = value[i * keyLength + j];
+                        tabs[i, keyNumbers[j] - 1] = value[counter++];
                     //YCPRGTROHAYPAOS
                     //3 0 - tabs[3,2] = A
                     //3 1 - tabs[3,0] = O
@@ -129,7 +132,7 @@ namespace BSKCrypto
                 }
             }
 
-            char[] result = new char[value.Length];
+            char[] result = new char[value.Length+1];
 
             for (int i = 0; i < tabsCount; i++)
             {
@@ -139,7 +142,10 @@ namespace BSKCrypto
                     {
                         result[i * keyLength + j] = tabs[i, j];
                     }
-                    catch (Exception) { }
+                    catch (Exception ex) 
+                    {
+                        //throw ex;
+                    }
                 }
             }
 

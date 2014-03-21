@@ -18,6 +18,8 @@ namespace BSKCrypto
         //! \return                 Zaszyfrowany tekst zgodnie z podanym kluczem
         public static string Encrypt(int rail, string plainText)
         {
+            if (rail <= 1)
+                return plainText;
             List<string> railFence = new List<string>();
             for (int i = 0; i < rail; i++)
             {
@@ -55,6 +57,8 @@ namespace BSKCrypto
         //! \return                 Odszyfrowany tekst zgodnie z podanym kluczem
         public static string Decrypt(int rail, string cipherText)
         {
+            if (rail <= 1)
+                return cipherText;
             int cipherLength = cipherText.Length;
             List<List<int>> railFence = new List<List<int>>();
             for (int i = 0; i < rail; i++)
