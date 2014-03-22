@@ -16,6 +16,7 @@ namespace BSKCrypto
         {
             int[] result = new int[key.Length];
             int counter = 0;
+            key = key.ToUpper();
 
             for (char k = 'A'; k < 'Z'; k++)
             {
@@ -39,9 +40,10 @@ namespace BSKCrypto
         public static string Encrypt(String key, String value)
         {
             int[] keyNumbers = parseKey(key);
-            value = value.Replace(" ", String.Empty).Replace("\t", String.Empty).Replace("\n", String.Empty).Replace("\r", String.Empty);
+            //value = value.Replace(" ", String.Empty).Replace("\t", String.Empty).Replace("\n", String.Empty).Replace("\r", String.Empty);
             int keyLength = keyNumbers.Length;
-            int tabsCount = 1000;
+            int cycleLength = ((1 + keyLength) / 2) * keyLength;
+            int tabsCount = ((value.Length + cycleLength - 1) / cycleLength)*keyLength;
             char[,] tabs = new char[tabsCount, keyLength];
             int counter = 0; int keyCounter = -1;
 
@@ -53,7 +55,7 @@ namespace BSKCrypto
                 keyCounter = 0;
                 for (int k = 0; k < keyLength; k++)
                 {
-                    if (keyNumbers[k] == i)
+                    if (keyNumbers[k] == i%keyLength)
                     {
                         keyCounter = k;
                     }
@@ -111,20 +113,50 @@ namespace BSKCrypto
         public static string Decrypt(String key, String value)
         {
             int[] keyNumbers = parseKey(key);
-            value = value.Replace(" ", String.Empty).Replace("\t", String.Empty).Replace("\n", String.Empty).Replace("\r", String.Empty);
+            //value = value.Replace(" ", String.Empty).Replace("\t", String.Empty).Replace("\n", String.Empty).Replace("\r", String.Empty);
             int keyLength = keyNumbers.Length;
-            int tabsCount = 7;
-            char[,] tabs = new char[tabsCount, keyLength];
+            int[] linesSizes = new int[keyLength];
+            for (int i = 0; i < keyLength; i++)
+            {
+                for (int k = 0; k < keyLength; k++)
+                {
+                    if (keyNumbers[k] == i)
+                    {
+                        linesSizes[i] = k + 1;
+                        break;
+                    }
+                }
+            }
+            int cycleLength = 0;
+            for (int i = 0; i < keyLength; i++)
+            {
+                cycleLength += i + 1;
+            }
+            int tabsCount = 0;
+            int lastLineDif = value.Length % cycleLength;
 
+            tabsCount = calculateTabSize(keyNumbers, value);
+            if (tabsCount == -1)
+                return "";
+
+            char[,] tabs = new char[tabsCount, keyLength];
             char[] result = new char[2 * value.Length + keyLength];
             int counter = 0;
+
+            for (int i = 0; i < keyLength; i++)
+            {
+                if (lastLineDif > linesSizes[i])
+                    lastLineDif -= linesSizes[i];
+                else
+                    break;
+            }
 
             for (int i = 0; i < keyLength; i++)
             {
                 int keyCounter = -1;
                 for (int k = 0; k < keyLength; k++)
                 {
-                    if (keyNumbers[k] == i)
+                    if (keyNumbers[k] == i%keyLength)
                     {
                         keyCounter = k;
                         break;
@@ -142,7 +174,7 @@ namespace BSKCrypto
                         }
                         for (int c = 0; c < keyCounter; c++)
                         {
-                            if (j == keyNumbers[c])
+                            if (j%keyLength == keyNumbers[c])
                             {
                                 check = false;
                                 break;
@@ -150,7 +182,17 @@ namespace BSKCrypto
                         }
                         if(check) 
                         {
-                            tabs[j, keyCounter] = value[counter++];
+                            if (j == tabsCount - 1)
+                            {
+                                //JEŚLI OSTATNIA LINIA 
+                                if (keyCounter < lastLineDif)
+                                    tabs[j, keyCounter] = value[counter++];
+                                else
+                                    continue;
+
+                            }
+                            else
+                                tabs[j, keyCounter] = value[counter++];
                         }
                         else {
                             continue;
@@ -173,6 +215,46 @@ namespace BSKCrypto
             }
 
             return new String(result);
+        }
+
+        private static int calculateTabSize(int[] keyNumbers, string value)
+        {
+            int keyLength = keyNumbers.Length;
+            int[] linesSizes = new int[keyLength];
+            int cycleLength = 0;
+            for (int i = 0; i < keyLength; i++)
+            {
+                cycleLength += i + 1;
+            }
+            int tabsCount = (value.Length / cycleLength) * keyLength;
+
+            for (int i = 0; i < keyLength; i++)
+            {
+                for (int k = 0; k < keyLength; k++)
+                {
+                    if (keyNumbers[k] == i)
+                    {
+                        linesSizes[i] = k + 1;
+                        break;
+                    }
+                }
+            }
+
+            int temp = value.Length / cycleLength;
+            int leftChars = value.Length - cycleLength * temp - 1;
+            for (int i = 0; i < keyLength; i++)
+            {
+                if (linesSizes[i] <= leftChars)
+                {
+                    tabsCount++;
+                    leftChars -= linesSizes[i];
+                }
+                else
+                {
+                    return tabsCount+1;
+                }
+            }
+            return -1;
         }
     }
 }

@@ -48,7 +48,7 @@ namespace BSKCrypto
             if((keyNumbers = parseKey(key)) == null) {
                 return "";
             }
-            value = value.Replace(" ", String.Empty).Replace("\t", String.Empty).Replace("\n", String.Empty).Replace("\r", String.Empty);
+            //value = value.Replace(" ", String.Empty).Replace("\t", String.Empty).Replace("\n", String.Empty).Replace("\r", String.Empty);
             //int tabsCount = value.Length / keyLength;
             int keyLength = keyNumbers.Length;
             int tabsCount = (value.Length + keyLength - 1) / keyLength;
@@ -99,7 +99,7 @@ namespace BSKCrypto
                 return "";
             }
             //value = value.Replace(" ", string.Empty);
-            value = value.Replace(" ", String.Empty).Replace("\t", String.Empty).Replace("\n", String.Empty).Replace("\r", String.Empty);
+            //value = value.Replace(" ", String.Empty).Replace("\t", String.Empty).Replace("\n", String.Empty).Replace("\r", String.Empty);
             int keyLength = keyNumbers.Length;
             int tabsCount = (value.Length + keyLength - 1) / keyLength;
             char[,] tabs = new char[tabsCount, keyLength];

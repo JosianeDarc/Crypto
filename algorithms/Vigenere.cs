@@ -71,6 +71,10 @@ namespace BSKCrypto
                     result += LookupLetter(key.Substring(keyIndex, 1), plainText.Substring(i, 1));
                     keyIndex++;
                 }
+                else
+                {
+                    result += plainText[i];
+                }
             }
             return result;
         }
@@ -130,6 +134,10 @@ namespace BSKCrypto
                     }
 
                     keyIndex++;
+                }
+                else
+                {
+                    result += cipherText[i];
                 }
             }
             return result;

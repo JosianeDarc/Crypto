@@ -19,6 +19,7 @@ namespace BSKCrypto
         {
             int[] result = new int[key.Length];
             int counter = 0;
+            key = key.ToUpper();
 
             for (char k = 'A'; k < 'Z'; k++)
             {
@@ -43,7 +44,7 @@ namespace BSKCrypto
         {
             int[] keyNumbers = parseKey(key.ToUpper());
             //value = value.Replace(" ", string.Empty);
-            value = value.Replace(" ", String.Empty).Replace("\t", String.Empty).Replace("\n", String.Empty).Replace("\r", String.Empty);
+            //value = value.Replace(" ", String.Empty).Replace("\t", String.Empty).Replace("\n", String.Empty).Replace("\r", String.Empty);
             int keyLength = keyNumbers.Length;
             int tabsCount = (value.Length + keyLength - 1) / keyLength;
             char[,] tabs = new char[tabsCount, keyLength];
@@ -100,7 +101,7 @@ namespace BSKCrypto
         {
             int[] keyNumbers = parseKey(key);
             //value = value.Replace(" ", string.Empty);
-            value = value.Replace(" ", String.Empty).Replace("\t", String.Empty).Replace("\n", String.Empty).Replace("\r", String.Empty);
+            //value = value.Replace(" ", String.Empty).Replace("\t", String.Empty).Replace("\n", String.Empty).Replace("\r", String.Empty);
             int keyLength = keyNumbers.Length;
             int tabsCount = (value.Length + keyLength - 1) / keyLength;
             char[,] tabs = new char[tabsCount, keyLength];
