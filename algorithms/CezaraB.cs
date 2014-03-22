@@ -8,10 +8,8 @@ namespace BSKCrypto
 {
     class CezaraB
     {
-        static char Encrypt(char ch, int code)
+        static char Encrypt(char ch, int k0, int k1)
         {
-            int k0, k1;
-            k0 = 3; k1 = 5;
             if (!char.IsLetter(ch))
             {
                 return ch;
@@ -25,9 +23,9 @@ namespace BSKCrypto
         //! \param[in] rail         Klucz używany przy szyfrowaniu
         //! \param[in] plainText    Tekst do zaszyfrowania
         //! \return                 Zaszyfrowany tekst zgodnie z podanym kluczem
-        public static string Encrypt(int key, string value)
+        public static string Encrypt(int k0, int k1, string value)
         {
-            return new string(value.ToCharArray().Select(ch => Encrypt(ch, key)).ToArray());
+            return new string(value.ToCharArray().Select(ch => Encrypt(ch, k0, k1)).ToArray());
         }
 
         //!
@@ -35,13 +33,11 @@ namespace BSKCrypto
         //! \param[in] rail         Klucz do odszyfrowania
         //! \param[in] cipherText   Zaszyfrowany tekst
         //! \return                 Odszyfrowany tekst zgodnie z podanym kluczem
-        public static string Decrypt(int key, string value)
+        public static string Decrypt(int k0, int k1, string value)
         {
             StringBuilder result = new StringBuilder();
             foreach (char ch in value.ToCharArray())
             {
-                int k0, k1;
-                k0 = 3; k1 = 5;
                 if (!char.IsLetter(ch))
                 {
                     result.Append(ch);
