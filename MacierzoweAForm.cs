@@ -24,7 +24,7 @@ namespace BSKCrypto
 
         private void button2_Click(object sender, EventArgs e)
         {
-            textResult.Text = MacierzoweA.Decrypyt(textBox3.Text, text.Text);
+            textResult.Text = MacierzoweA.Decrypt(textBox3.Text, text.Text);
         }
 
         public string getOutput()

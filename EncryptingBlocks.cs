@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,6 +49,7 @@ namespace BSKCrypto
             text.Text = value;
             textResult.Text = "";
             startIndex = 0;
+            operations.Clear();
             labCount.Text = Convert.ToString(startIndex);
         }
 
@@ -62,7 +64,10 @@ namespace BSKCrypto
                 {
                     txt = Encrypt(txt);
                 }
-                operations.Add(new BlockInfo(bSize, cbAlgorithms.SelectedItem.ToString(), rot));
+
+                BlockInfo bi = new BlockInfo(bSize, cbAlgorithms.SelectedItem.ToString(), rot);
+                setKeys(bi);
+                operations.Add(bi);
                 //textResult.Text += Encrypt(text.Text.Substring(startIndex, Convert.ToInt32(numBlock.Value)));
                 textResult.Text += txt;
                 startIndex += Convert.ToInt32(numBlock.Value);
@@ -75,18 +80,39 @@ namespace BSKCrypto
                     int endIndex = size - startIndex;
 
                     int rot = Convert.ToInt32(numericUpDown4.Value);
-                    String txt = text.Text.Substring(startIndex, endIndex - 1);
+                    String txt = text.Text.Substring(startIndex, endIndex);
                     for (int i = 0; i < rot; i++)
                     {
                         txt = Encrypt(txt);
                     }
-                    operations.Add(new BlockInfo(endIndex - 1, cbAlgorithms.SelectedItem.ToString(), rot));
+
+                    BlockInfo bi = new BlockInfo(endIndex - 1, cbAlgorithms.SelectedItem.ToString(), rot);
+                    setKeys(bi);
+                    operations.Add(bi);
                     textResult.Text += txt;
                     //textResult.Text += Encrypt(text.Text.Substring(startIndex, endIndex - 1));
                     startIndex += endIndex;
                 }
             }
             labCount.Text = Convert.ToString(startIndex);
+        }
+
+        private void setKeys(BlockInfo bi)
+        {
+            if (cbAlgorithms.SelectedItem.Equals(algo[5])) // CezaraB
+            {
+                bi.keyOne = Convert.ToString(numericUpDown1.Value);
+                bi.keyTwo = Convert.ToString(numericUpDown2.Value);
+            }
+            else if (cbAlgorithms.SelectedItem.Equals(algo[4]) || cbAlgorithms.SelectedItem.Equals(algo[0]))
+            {
+                bi.keyOne = Convert.ToString(numericUpDown3.Value);
+            }
+            else
+            {
+                bi.keyOne = textKey.Text;
+            }
+            //Console.WriteLine("Dodaje klucze dla: " + bi.ToString());
         }
 
         private void EncryptingBlocks_Load(object sender, EventArgs e)
@@ -118,7 +144,7 @@ namespace BSKCrypto
             }
             else if (cbAlgorithms.SelectedItem.Equals(algo[4]))
             {
-                return CezaraA.Encrypt(Convert.ToInt32(numericUpDown3.Value), text.Text);
+                return CezaraA.Encrypt(Convert.ToInt32(numericUpDown3.Value), value);
             }
             else if (cbAlgorithms.SelectedItem.Equals(algo[5]))
             {
@@ -127,7 +153,7 @@ namespace BSKCrypto
             else if (cbAlgorithms.SelectedItem.Equals(algo[6]))
             {
                 Vigenere v = new Vigenere(textKey.Text);
-                return v.Encrypt(text.Text);
+                return v.Encrypt(value);
             }
             return "";
         }
@@ -136,6 +162,7 @@ namespace BSKCrypto
         {
             textResult.Text = "";
             startIndex = 0;
+            operations.Clear();
             labCount.Text = Convert.ToString(startIndex);
         }
 
@@ -252,6 +279,112 @@ namespace BSKCrypto
         {
             return "Blocks";
         }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                Console.WriteLine(dialog.FileName);
+                try
+                {
+                    using (Stream stream = File.Open(dialog.FileName, FileMode.Open))
+                    {
+                        var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+
+                        List<BlockInfo> op = (List<BlockInfo>)bformatter.Deserialize(stream);
+                        linkLabel2.Text = Path.GetFileName(dialog.FileName);
+                        operations.Clear();
+                        foreach (BlockInfo bi in op)
+                        {
+                            Console.WriteLine(bi.ToString());
+                            operations.Add(bi);
+                        }
+                    }
+                }
+                catch (Exception) { }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            startIndex = 0;
+            textResult.Text = "";
+            foreach (BlockInfo bi in operations)
+            {
+                try
+                    {
+                        int rot = bi.EncryptCount;
+                        int bSize = bi.BlockSize;
+                        String txt = text.Text.Substring(startIndex, bSize);
+                        for (int i = 0; i < rot; i++)
+                        {
+                            txt = Decrypt(bi, txt);
+                        }
+
+                        //textResult.Text += Encrypt(text.Text.Substring(startIndex, Convert.ToInt32(numBlock.Value)));
+                        textResult.Text += txt;
+                        startIndex += bi.BlockSize;
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        if (startIndex < text.Text.Length)
+                        {
+                            int size = text.Text.Length;
+                            int endIndex = size - startIndex;
+
+                            int rot = Convert.ToInt32(bi.EncryptCount);
+                            String txt = text.Text.Substring(startIndex, endIndex);
+                            for (int i = 0; i < rot; i++)
+                            {
+                                txt = Decrypt(bi, txt);
+                            }
+
+                            textResult.Text += txt;
+                            //textResult.Text += Encrypt(text.Text.Substring(startIndex, endIndex - 1));
+                            startIndex += endIndex;
+                        }
+                    }
+                //labCount.Text = Convert.ToString(startIndex);
+            }
+        }
+
+        private String Decrypt(BlockInfo bi, String value)
+        {
+            //algo = new String[] { "RailFence", "MacierzoweA", "MacierzoweB", "MacierzoweC", "CezaraA", "CezaraB", "Vigenere" };
+            if (bi == null)
+                return "";
+            if (bi.EncryptMethod.Equals(algo[0]))
+            {
+                return RailFence.Decrypt(Convert.ToInt32(bi.keyOne), value);
+            }
+            else if (bi.EncryptMethod.Equals(algo[1]))
+            {
+                return MacierzoweA.Decrypt(bi.keyOne, value);
+            }
+            else if (bi.EncryptMethod.Equals(algo[2]))
+            {
+                return MacierzoweB.Decrypt(bi.keyOne, value);
+            }
+            else if (bi.EncryptMethod.Equals(algo[3]))
+            {
+                return MacierzoweC.Decrypt(bi.keyOne, value);
+            }
+            else if (bi.EncryptMethod.Equals(algo[4]))
+            {
+                return CezaraA.Decrypt(Convert.ToInt32(bi.keyOne), value);
+            }
+            else if (bi.EncryptMethod.Equals(algo[5]))
+            {
+                return CezaraB.Decrypt(Convert.ToInt32(bi.keyOne), Convert.ToInt32(bi.keyTwo), value);
+            }
+            else if (bi.EncryptMethod.Equals(algo[6]))
+            {
+                Vigenere v = new Vigenere(bi.keyOne);
+                return v.Encrypt(value);
+            }
+            return "";
+        }
     }
 
     [Serializable]
@@ -260,12 +393,18 @@ namespace BSKCrypto
         public int BlockSize { get; set; }
         public String EncryptMethod { get; set; }
         public int EncryptCount { get; set; }
+        public String keyOne { get; set; }
+        public String keyTwo { get; set; }
 
         public BlockInfo(int bs, String em, int ec)
         {
             BlockSize = bs;
             EncryptMethod = em;
             EncryptCount = ec;
+        }
+        public override string ToString()
+        {
+            return Convert.ToString(BlockSize) + " " + EncryptMethod + " " + Convert.ToString(EncryptCount);
         }
     }
 }

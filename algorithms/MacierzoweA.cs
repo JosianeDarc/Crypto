@@ -91,7 +91,7 @@ namespace BSKCrypto
         //! \param[in] key      Klucz na podstawie którego zostanie odszyfrowany tekst
         //! \param[in] value    Zaszyfrowany tekst do odkodowania
         //!
-        public static string Decrypyt(string key, string value)
+        public static string Decrypt(string key, string value)
         {
             int[] keyNumbers;
             if ((keyNumbers = parseKey(key)) == null)

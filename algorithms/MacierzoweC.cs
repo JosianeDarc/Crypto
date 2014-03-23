@@ -140,7 +140,7 @@ namespace BSKCrypto
                 return "";
 
             char[,] tabs = new char[tabsCount, keyLength];
-            char[] result = new char[2 * value.Length + keyLength];
+            char[] result = new char[value.Length + keyLength];
             int counter = 0;
 
             for (int i = 0; i < keyLength; i++)
@@ -167,9 +167,9 @@ namespace BSKCrypto
                     try
                     {
                         bool check = true;
-                        if (j == keyNumbers[keyCounter])
+                        if (j == keyNumbers[keyCounter] && j != tabsCount - 1)
                         {
-                            tabs[j, keyCounter] = value[counter++];
+                            tabs[j, keyCounter] = value[counter++]; //blad 
                             continue;
                         }
                         for (int c = 0; c < keyCounter; c++)

@@ -121,7 +121,7 @@ namespace BSKCrypto
                 {
                     EncryptingBlocks tab = (EncryptingBlocks)currentTab;
                     //Console.WriteLine(tab.getKey());
-                    using (Stream stream = File.Open(currentPath + "/" + "key" + textFileName.Text, FileMode.Create))
+                    using (Stream stream = File.Open(currentPath + "/" + "key" + Path.GetFileNameWithoutExtension(textFileName.Text) + ".bin", FileMode.Create))
                     {
                         var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
 
