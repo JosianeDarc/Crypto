@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace BSKCrypto
 {
+    /*!
+     * Klasa z metodami do szyfrowania z przykładu 3a. Na podstawie klucza (tekstu) generowany jest tekst.
+     * */
     class CezaraA
     {
+        //!
+        //! Metoda do zaszyfrowania pojedynczego znaku
+        //! \param[in] code         Klucz używany przy szyfrowaniu
+        //! \param[in] ch           Znak do zaszyfrowania
+        //! \return                 Zaszyfrowany znak zgodnie z podanym kluczem
         static char Encrypt(char ch, int code)
         {
             if (!char.IsLetter(ch))
@@ -20,8 +28,8 @@ namespace BSKCrypto
         
         //!
         //! Metoda do zaszyfrowania tekstu o zadanym kluczu
-        //! \param[in] rail         Klucz używany przy szyfrowaniu
-        //! \param[in] plainText    Tekst do zaszyfrowania
+        //! \param[in] key          Klucz używany przy szyfrowaniu
+        //! \param[in] value        Tekst do zaszyfrowania
         //! \return                 Zaszyfrowany tekst zgodnie z podanym kluczem
         public static string Encrypt(int key, string value)
         {
@@ -30,8 +38,8 @@ namespace BSKCrypto
 
         //!
         //! Metoda do odszyfrowywania zakodowanego tekstu o określonym kluczu
-        //! \param[in] rail         Klucz do odszyfrowania
-        //! \param[in] cipherText   Zaszyfrowany tekst
+        //! \param[in] key          Klucz do odszyfrowania
+        //! \param[in] value        Zaszyfrowany tekst
         //! \return                 Odszyfrowany tekst zgodnie z podanym kluczem
         public static string Decrypt(int key, string value)
         {

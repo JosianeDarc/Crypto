@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace BSKCrypto
 {
+    /*!
+     * Klasa z metodami do szyfrowania z przykładu 2c. Na podstawie klucza (tekstu) generowany jest tekst.
+     * */
     class MacierzoweC
     {
         //!
         //! Zamiana klucza w postaci tekstu na tablicę liczb
         //! \param[in] key  Klucz w postaci tekstu do sparsowania
-        //!
+        //! \return         Tablica liczb całkowitych - jako klucz
         public static int[] parseKey(String key)
         {
             int[] result = new int[key.Length];
@@ -36,7 +39,7 @@ namespace BSKCrypto
         //! Metoda do szyfrowania tekstu na podstawie klucza
         //! \param[in] key      Klucz w postaci tekstu, który zostanie sparsowany
         //! \param[in] value    Tekst do zaszyfrowania
-        //!
+        //! \return             Zaszyfrowany tekst
         public static string Encrypt(String key, String value)
         {
             int[] keyNumbers = parseKey(key);
@@ -109,7 +112,7 @@ namespace BSKCrypto
         //! Metoda do odkodowania tekstu na podstawie znanego klucza
         //! \param[in] key      Klucz na podstawie którego zostanie odszyfrowany tekst
         //! \param[in] value    Zaszyfrowany tekst do odkodowania
-        //!
+        //! \return             Odszyfrowany tekst
         public static string Decrypt(String key, String value)
         {
             int[] keyNumbers = parseKey(key);
@@ -217,6 +220,11 @@ namespace BSKCrypto
             return new String(result);
         }
 
+        //!
+        //! Metoda do obliczania ilości potrzebnych tablic
+        //! \param[in] keyNumber    Klucz w postaci tablicy liczb całkowitych
+        //! \param[in] value        Tekst do odszyfrowania
+        //! \return                 Minimalna ilość tablic
         private static int calculateTabSize(int[] keyNumbers, string value)
         {
             int keyLength = keyNumbers.Length;

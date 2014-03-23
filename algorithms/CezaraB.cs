@@ -6,8 +6,17 @@ using System.Threading.Tasks;
 
 namespace BSKCrypto
 {
+    /*!
+     * Klasa z metodami do szyfrowania z przykładu 3b. Na podstawie klucza (dwóch liczb) generowany jest tekst.
+     * */
     class CezaraB
     {
+        //!
+        //! Metoda do zaszyfrowania znaku o zadanym kluczu
+        //! \param[in] k0       Klucz pierwszy używany przy szyfrowaniu
+        //! \param[in] k1       Klucz drugi używany przy szyfrowaniu
+        //! \param[in] ch       Znak do zaszyfrowania
+        //! \return             Zaszyfrowany znak zgodnie z podanym kluczem
         static char Encrypt(char ch, int k0, int k1)
         {
             if (!char.IsLetter(ch))
@@ -20,9 +29,10 @@ namespace BSKCrypto
 
         //!
         //! Metoda do zaszyfrowania tekstu o zadanym kluczu
-        //! \param[in] rail         Klucz używany przy szyfrowaniu
-        //! \param[in] plainText    Tekst do zaszyfrowania
-        //! \return                 Zaszyfrowany tekst zgodnie z podanym kluczem
+        //! \param[in] k0       Klucz pierwszy używany przy szyfrowaniu
+        //! \param[in] k1       Klucz drugi używany przy szyfrowaniu
+        //! \param[in] value    Tekst do zaszyfrowania
+        //! \return             Zaszyfrowany tekst zgodnie z podanym kluczem
         public static string Encrypt(int k0, int k1, string value)
         {
             return new string(value.ToCharArray().Select(ch => Encrypt(ch, k0, k1)).ToArray());
@@ -30,9 +40,10 @@ namespace BSKCrypto
 
         //!
         //! Metoda do odszyfrowywania zakodowanego tekstu o określonym kluczu
-        //! \param[in] rail         Klucz do odszyfrowania
-        //! \param[in] cipherText   Zaszyfrowany tekst
-        //! \return                 Odszyfrowany tekst zgodnie z podanym kluczem
+        //! \param[in] k0       Klucz pierwszy używany przy szyfrowaniu
+        //! \param[in] k1       Klucz drugi używany przy szyfrowaniu
+        //! \param[in] value    Tekst do odszyfrowania
+        //! \return             Odszyfrowany tekst zgodnie z podanym kluczem
         public static string Decrypt(int k0, int k1, string value)
         {
             StringBuilder result = new StringBuilder();
