@@ -41,7 +41,7 @@ namespace BSKCrypto
             String[] files = Directory.GetFiles("files", "*.txt");
             for (int i = 0; i < files.Length; i++)
             {
-                listBox1.Items.Add(files[i]);
+                listBox1.Items.Add(Path.GetFileName(files[i]));
             }
         }
 
@@ -71,7 +71,7 @@ namespace BSKCrypto
                 currentPath = dialog.SelectedPath;
                 for (int i = 0; i < files.Length; i++)
                 {
-                    listBox1.Items.Add(files[i]);
+                    listBox1.Items.Add(Path.GetFileName(files[i]));
                 }
             }
         }
@@ -81,12 +81,13 @@ namespace BSKCrypto
             StringBuilder text = new StringBuilder();
             try
             {
-                using (StreamReader sr = new StreamReader(listBox1.SelectedItem.ToString()))
+                using (StreamReader sr = new StreamReader(currentPath + "/" + listBox1.SelectedItem.ToString()))
                 {
                     String line = sr.ReadToEnd();
                     text.Append(line);
                 }
                 currentTab.setInput(text.ToString());
+                textFileName.Text = "enc_" + listBox1.SelectedItem.ToString();
             }
             catch (Exception) { }
 
@@ -114,9 +115,32 @@ namespace BSKCrypto
 
         private void button3_Click(object sender, EventArgs e)
         {
-            System.IO.StreamWriter file = new System.IO.StreamWriter(currentPath+"/_" + ".txt");
-            file.Write(currentTab.getOutput());
-            file.Close();
+            try
+            {
+                if (currentTab.ToString().Equals("Blocks"))
+                {
+                    EncryptingBlocks tab = (EncryptingBlocks)currentTab;
+                    //Console.WriteLine(tab.getKey());
+                    using (Stream stream = File.Open(currentPath + "/" + "key" + textFileName.Text, FileMode.Create))
+                    {
+                        var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+
+                        bformatter.Serialize(stream, tab.getKey());
+                    }
+                }
+
+                System.IO.StreamWriter file = new System.IO.StreamWriter(currentPath + "/" + textFileName.Text);
+                file.Write(currentTab.getOutput());
+                file.Close();
+
+                listBox1.Items.Clear();
+                String[] files = Directory.GetFiles(currentPath, "*.txt");
+                for (int i = 0; i < files.Length; i++)
+                {
+                    listBox1.Items.Add(Path.GetFileName(files[i]));
+                }
+            }
+            catch (Exception) { }
         }
     }
 }

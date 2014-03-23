@@ -38,6 +38,11 @@ namespace BSKCrypto
             return textResult.Text;
         }
 
+        public List<BlockInfo> getKey()
+        {
+            return operations;
+        }
+
         public void setInput(string value)
         {
             text.Text = value;
@@ -51,11 +56,13 @@ namespace BSKCrypto
             try
             {
                 int rot = Convert.ToInt32(numericUpDown4.Value);
-                String txt = text.Text.Substring(startIndex, Convert.ToInt32(numBlock.Value));
+                int bSize = Convert.ToInt32(numBlock.Value);
+                String txt = text.Text.Substring(startIndex, bSize);
                 for (int i = 0; i < rot; i++)
                 {
                     txt = Encrypt(txt);
                 }
+                operations.Add(new BlockInfo(bSize, cbAlgorithms.SelectedItem.ToString(), rot));
                 //textResult.Text += Encrypt(text.Text.Substring(startIndex, Convert.ToInt32(numBlock.Value)));
                 textResult.Text += txt;
                 startIndex += Convert.ToInt32(numBlock.Value);
@@ -73,6 +80,7 @@ namespace BSKCrypto
                     {
                         txt = Encrypt(txt);
                     }
+                    operations.Add(new BlockInfo(endIndex - 1, cbAlgorithms.SelectedItem.ToString(), rot));
                     textResult.Text += txt;
                     //textResult.Text += Encrypt(text.Text.Substring(startIndex, endIndex - 1));
                     startIndex += endIndex;
@@ -239,8 +247,14 @@ namespace BSKCrypto
             }
             return s;
         }
+
+        public override string ToString()
+        {
+            return "Blocks";
+        }
     }
 
+    [Serializable]
     public class BlockInfo
     {
         public int BlockSize { get; set; }
