@@ -80,13 +80,13 @@ namespace BSKCrypto
                     int endIndex = size - startIndex;
 
                     int rot = Convert.ToInt32(numericUpDown4.Value);
-                    String txt = text.Text.Substring(startIndex, endIndex);
+                    String txt = text.Text.Substring(startIndex);
                     for (int i = 0; i < rot; i++)
                     {
                         txt = Encrypt(txt);
                     }
 
-                    BlockInfo bi = new BlockInfo(endIndex - 1, cbAlgorithms.SelectedItem.ToString(), rot);
+                    BlockInfo bi = new BlockInfo(endIndex, cbAlgorithms.SelectedItem.ToString(), rot);
                     setKeys(bi);
                     operations.Add(bi);
                     textResult.Text += txt;
@@ -316,6 +316,10 @@ namespace BSKCrypto
                     {
                         int rot = bi.EncryptCount;
                         int bSize = bi.BlockSize;
+                        if (operations.ElementAt(operations.Count - 1).Equals(bi))
+                        {
+                            throw new ArgumentOutOfRangeException();
+                        }
                         String txt = text.Text.Substring(startIndex, bSize);
                         for (int i = 0; i < rot; i++)
                         {
@@ -334,7 +338,7 @@ namespace BSKCrypto
                             int endIndex = size - startIndex;
 
                             int rot = Convert.ToInt32(bi.EncryptCount);
-                            String txt = text.Text.Substring(startIndex, endIndex);
+                            String txt = text.Text.Substring(startIndex);
                             for (int i = 0; i < rot; i++)
                             {
                                 txt = Decrypt(bi, txt);
@@ -404,7 +408,7 @@ namespace BSKCrypto
         }
         public override string ToString()
         {
-            return Convert.ToString(BlockSize) + " " + EncryptMethod + " " + Convert.ToString(EncryptCount);
+            return Convert.ToString(BlockSize) + " " + EncryptMethod + " " + Convert.ToString(EncryptCount) + " " + keyOne + " " + keyTwo;
         }
     }
 }

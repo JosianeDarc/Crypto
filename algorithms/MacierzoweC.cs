@@ -172,7 +172,7 @@ namespace BSKCrypto
                         bool check = true;
                         if (j == keyNumbers[keyCounter] && j != tabsCount - 1)
                         {
-                            tabs[j, keyCounter] = value[counter++]; //blad 
+                            tabs[j, keyCounter] = value[counter++]; //blad
                             continue;
                         }
                         for (int c = 0; c < keyCounter; c++)
@@ -216,8 +216,14 @@ namespace BSKCrypto
                     result[counter++] = tabs[i, j];
                 }
             }
+            char[] result2 = new char[counter];
 
-            return new String(result);
+            for (int i = 0; i < counter; i++)
+            {
+                result2[i] = result[i];
+            }
+
+            return new String(result2);
         }
 
         //!
