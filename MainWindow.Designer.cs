@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textFileName = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -37,8 +39,7 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.textFileName = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -56,6 +57,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.button4);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.textFileName);
             this.splitContainer1.Panel1.Controls.Add(this.button3);
@@ -70,6 +72,22 @@
             this.splitContainer1.Size = new System.Drawing.Size(584, 344);
             this.splitContainer1.SplitterDistance = 203;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 242);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(68, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Nazwa pliku:";
+            // 
+            // textFileName
+            // 
+            this.textFileName.Location = new System.Drawing.Point(12, 261);
+            this.textFileName.Name = "textFileName";
+            this.textFileName.Size = new System.Drawing.Size(179, 20);
+            this.textFileName.TabIndex = 5;
             // 
             // button3
             // 
@@ -140,21 +158,15 @@
             this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 22);
             this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
             // 
-            // textFileName
+            // button4
             // 
-            this.textFileName.Location = new System.Drawing.Point(12, 261);
-            this.textFileName.Name = "textFileName";
-            this.textFileName.Size = new System.Drawing.Size(179, 20);
-            this.textFileName.TabIndex = 5;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 242);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Nazwa pliku:";
+            this.button4.Location = new System.Drawing.Point(126, 318);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 7;
+            this.button4.Text = "Logi";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // MainWindow
             // 
@@ -190,6 +202,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textFileName;
+        private System.Windows.Forms.Button button4;
 
 
 

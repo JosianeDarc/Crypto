@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AESForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AESForm.Designer.cs">
+      <DependentUpon>AESForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="algorithms\CezaraA.cs" />
     <Compile Include="algorithms\CezaraB.cs" />
     <Compile Include="algorithms\MacierzoweB.cs" />
@@ -68,7 +77,20 @@
       <DependentUpon>EncryptingBlocks.cs</DependentUpon>
     </Compile>
     <Compile Include="algorithms\MacierzoweA.cs" />
+    <Compile Include="EnigmaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EnigmaForm.Designer.cs">
+      <DependentUpon>EnigmaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="enigma\Rotor.cs" />
     <Compile Include="FormInterface.cs" />
+    <Compile Include="LogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogForm.Designer.cs">
+      <DependentUpon>LogForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MacierzoweAForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +130,9 @@
     <Compile Include="VigenereForm.Designer.cs">
       <DependentUpon>VigenereForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AESForm.resx">
+      <DependentUpon>AESForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CezarAForm.resx">
       <DependentUpon>CezarAForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -116,6 +141,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EncryptingBlocks.resx">
       <DependentUpon>EncryptingBlocks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EnigmaForm.resx">
+      <DependentUpon>EnigmaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogForm.resx">
+      <DependentUpon>LogForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MacierzoweAForm.resx">
       <DependentUpon>MacierzoweAForm.cs</DependentUpon>
@@ -145,6 +176,7 @@
     <EmbeddedResource Include="VigenereForm.resx">
       <DependentUpon>VigenereForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -17,12 +17,23 @@ namespace BSKCrypto
         private EncryptingBlocks blocks;
         private FormInterface currentTab;
         private String currentPath = "files";
+        private EnigmaForm enigma;
+        public String CurrentPath
+        {
+            get
+            {
+                return currentPath;
+            }
+        }
         public MainWindow()
         {
             InitializeComponent();
 
             tabs = new Dictionary<string, FormInterface>();
-            
+
+            tabs.Add("Enigma", enigma = new EnigmaForm());
+            enigma.CurrentPath = currentPath;
+            tabs.Add("AES", new AESForm());
             tabs.Add("RailFence", new RailFenceForm());
             tabs.Add("MacierzoweA", new MacierzoweAForm());
             tabs.Add("MacierzoweB", new MacierzoweBForm());
@@ -141,6 +152,11 @@ namespace BSKCrypto
                 }
             }
             catch (Exception) { }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            LogForm.getInstance().Show();
         }
     }
 }
