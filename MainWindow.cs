@@ -34,6 +34,7 @@ namespace BSKCrypto
             tabs.Add("Enigma", enigma = new EnigmaForm());
             enigma.CurrentPath = currentPath;
             tabs.Add("AES", new AESForm());
+            tabs.Add("DES", new DESForm());
             tabs.Add("RailFence", new RailFenceForm());
             tabs.Add("MacierzoweA", new MacierzoweAForm());
             tabs.Add("MacierzoweB", new MacierzoweBForm());
@@ -49,6 +50,10 @@ namespace BSKCrypto
 
         private void Form2_Load(object sender, EventArgs e)
         {
+            //DES d = new DES();
+            //String data = d.Encrypt("133457799BBCDFF1", "0123456789ABCDEF");
+            //Console.WriteLine(data);
+            //Console.WriteLine(d.Decrypt("133457799BBCDFF1", data));
             String[] files = Directory.GetFiles("files", "*.txt");
             for (int i = 0; i < files.Length; i++)
             {
