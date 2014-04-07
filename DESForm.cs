@@ -30,7 +30,9 @@ namespace BSKCrypto
         private void button1_Click(object sender, EventArgs e)
         {
                 DES d = new DES();
-                textResult.Text = d.EncryptText(textBox3.Text, text.Text);
+                //textResult.Text = d.EncryptText("0E329232EA6D0D73", "Your lips are smoother than vaseline");
+                //textResult.Text = d.EncryptText(textBox3.Text, text.Text);
+                textResult.Text = d.Encrypt3DES(textBox3.Text, textBox4.Text, text.Text);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -38,7 +40,9 @@ namespace BSKCrypto
             try
             {
                 DES d = new DES();
-                textResult.Text = d.DecryptText(textBox3.Text, text.Text);
+                //textResult.Text = d.DecryptText("0E329232EA6D0D73", text.Text);
+                //textResult.Text = d.DecryptText(textBox3.Text, text.Text);
+                textResult.Text = d.Decrypt3DES(textBox3.Text, textBox4.Text, text.Text);
             }
             catch (Exception) { }
         }
@@ -52,6 +56,13 @@ namespace BSKCrypto
                 b.Append(toChar(rand.Next(0, 15)));
             }
             textBox3.Text = b.ToString();
+
+            b.Clear();
+            for (int i = 0; i < 16; i++)
+            {
+                b.Append(toChar(rand.Next(0, 15)));
+            }
+            textBox4.Text = b.ToString();
         }
 
         private char toChar(int p)

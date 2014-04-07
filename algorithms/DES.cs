@@ -98,13 +98,62 @@ namespace BSKCrypto
         private static int[] shiftsNumber = { 1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1 };
         #endregion
 
+        public string Encrypt3DES(String key1, String key2, String text)
+        {
+            String result1 = EncryptText(key1, text);
+            String result2 = DecryptText(key2, result1);
+
+            return EncryptText(key1, result2);
+        }
+
+        public string Decrypt3DES(String key1, String key2, String text)
+        {
+            String result1 = DecryptText(key1, text);
+            String result2 = EncryptText(key2, result1);
+
+            return DecryptText(key1, result2);
+        }
+
         public string EncryptText(String key, String text)
         {
             StringBuilder sb = new StringBuilder();
-
-            for (int i = 0; i < text.Length; i+=16)
+            byte[] b = Encoding.Default.GetBytes(text);
+            BitArray bits;
+            if (b.Length % 8 == 0)
+                bits = new BitArray(b);
+            else
             {
-                sb.Append(Encrypt(key, text.Substring(i, 16)));
+                bits = new BitArray((b.Length - b.Length % 8) * 8 + 64);
+                BitArray temp = new BitArray(b);
+                for (int i = 0; i < temp.Length; i++)
+                {
+                    bits[i] = temp[i];
+                }
+                for (int i = temp.Length; i < bits.Length; i+=8)
+                {
+                    bits[i] = bits[i + 1] = bits[i + 2] = bits[i + 3] = bits[i + 6] = bits[i + 7] = false;
+                    bits[i + 4] = bits[i + 5] = true;
+                }
+            }
+            reverseBitsInBytes(bits);
+            BitArray[] tabs;
+            if(b.Length % 8 == 0)
+                tabs = new BitArray[b.Length/8];
+            else
+                tabs = new BitArray[b.Length/8 + 1];
+            int counter = 0;
+
+            for(int i=0; i<tabs.Length; i++) 
+            {
+                tabs[i] = new BitArray(64);
+                for(int j=0; j<64; j++) 
+                {
+                    tabs[i][j] = bits[counter++];
+                }
+            }
+            for (int i = 0; i < tabs.Length; i++)
+            {
+                sb.Append(Encrypt(key, tabs[i]));
             }
 
             return sb.ToString();
@@ -119,16 +168,42 @@ namespace BSKCrypto
                 sb.Append(Decrypt(key, text.Substring(i, 16)));
             }
 
-            return sb.ToString();
+            byte[] bytes = new byte[sb.Length / 2];
+            for (int i = 0, j = 0; i < bytes.Length*2; i+=2)
+            {
+                bytes[j++] = (byte) (hexToInt(sb[i])*16 + hexToInt(sb[i + 1]));
+            }
+            //BitArray bits = new BitArray(bytes);
+            //reverseBitsInBytes(bits);
+            //bits.CopyTo(bytes, 0);
+
+            String result = Encoding.Default.GetString(bytes);
+            StringBuilder build = new StringBuilder(result);
+
+            for (int i = result.Length - 1; result[i] == '0'; i--)
+            {
+                build[i] = '\0';
+            }
+
+            return build.ToString();
+            //return sb.ToString();
         }
 
-        public string Encrypt(String key, String data)
+        private int hexToInt(char h)
+        {
+            if (h < 'A')
+                return h - 48;
+            else
+                return h - 55;
+        }
+
+        public string Encrypt(String key, BitArray m)
         {
             BitArray[] keys = generateKeys(permuteKeyPC1(key));
 
             //byte[] m = stringToHex(data);
-            BitArray m = new BitArray(stringToHex(data));
-            reverseBitsInBytes(m);
+            //BitArray m = new BitArray(stringToHex(data));
+            //reverseBitsInBytes(m);
             BitArray ip = new BitArray(64);
             for (int i = 0; i < 64; i++)
             {

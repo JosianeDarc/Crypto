@@ -57,6 +57,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.bGenerateDESKey = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numBlock)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -371,11 +372,22 @@
             this.linkLabel2.Text = "Wybierz";
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
+            // bGenerateDESKey
+            // 
+            this.bGenerateDESKey.Location = new System.Drawing.Point(261, 169);
+            this.bGenerateDESKey.Name = "bGenerateDESKey";
+            this.bGenerateDESKey.Size = new System.Drawing.Size(83, 23);
+            this.bGenerateDESKey.TabIndex = 24;
+            this.bGenerateDESKey.Text = "Generuj klucz";
+            this.bGenerateDESKey.UseVisualStyleBackColor = true;
+            this.bGenerateDESKey.Click += new System.EventHandler(this.bGenerateDESKey_Click);
+            // 
             // EncryptingBlocks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(361, 322);
+            this.Controls.Add(this.bGenerateDESKey);
             this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.button1);
@@ -447,5 +459,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.Button bGenerateDESKey;
     }
 }
